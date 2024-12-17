@@ -1,1 +1,2 @@
-let f x = (x: Symbol.t :> Value.t)
+type t = private string
+let f x = (x: t :> string)
