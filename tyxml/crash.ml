@@ -1,50 +1,27 @@
-type core_flow5 =
-  [
-    | `Wbr of (int -> int)
-    | `Header of (float -> float)
-  ]
+type a = [ `A of (int -> int)]
+type b = [ `B ]
 
-type flow5_without_interactive =
-  [
-    core_flow5
-  |  `Noscript of (string -> string)
-  ]
+type core = [ a | b ]
+type extended = [ core | `N of core]
+type restricted = [ a | `N of [ | a ] ]
 
+type +'a inbetween = [< extended  > `A ] as 'a
 
-type flow5 =
-  [
-    | core_flow5
-    | `A of flow5_without_interactive
-    | `Noscript of (string -> string)
-  ]
+type x = { x: 'a. 'a inbetween }
 
-type flow5_without_interactive_header_footer =
-  [
-    | `Wbr of (int -> int)
-    | `Noscript of (string -> string)
-  ]
-
-type flow5_without_header_footer =
-  [
-    | `Wbr of (int -> int)
-    | `A of flow5_without_interactive_header_footer
-    | `Noscript of (string -> string)
-  ]
-
-type +'a inbetween =
-  [< flow5  > `Noscript `Wbr] as 'a
+let f {x} = (x : [ | a] :> restricted)
 
 
-type ('a,'b) t = 'a -> 'b
-
-type f = { f: 'a. ('a inbetween, 'a) t }
-
+type f = { f: 'a. 'a inbetween -> 'a }
 let id = { f = Fun.id }
 
-let wrong = (id.f :> (flow5, flow5_without_header_footer) t)
+let example = (id.f :> restricted -> restricted)
+let wrong = (id.f:> extended -> restricted)
 
-let crash = match wrong (`A (`Header ((+.) 1.))) with
-  | `Wbr _ -> ()
-  | `Noscript _ -> ()
-  | `A `Wbr f -> Format.eprintf "%d@." (f 2)
-  | `A (`Noscript s) -> Format.eprintf "%s@." (s "hi")
+let ok = (id.f:> extended -> restricted)
+
+
+let crash = match wrong (`N `B) with
+  | `A _ -> ()
+  | `N `A f -> Format.eprintf "%d@." (f 2)
+
