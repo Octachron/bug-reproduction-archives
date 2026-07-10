@@ -1,0 +1,4 @@
+module Dom = Js_of_ocaml__Dom
+module Js = Js_of_ocaml__Js
+module XmlHttpRequest = Js_of_ocaml__XmlHttpRequest
+module Js_of_ocaml__ = struct end

@@ -1,5 +1,6 @@
 (* Js_of_ocaml library
  * http://www.ocsigen.org/js_of_ocaml/
+ * Copyright (C) 2017 Hugo Heuzard
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,32 +17,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *)
 
-(** AbortController / AbortSignal.
+(** Bindings to the browser and Node.js runtime.
 
-    A general-purpose cancellation primitive used by {!Fetch}, event
-    listener registration, [Streams], and custom asynchronous code.
+    {b This library is provided by the [js_of_ocaml] opam package.} *)
 
-    @see <https://developer.mozilla.org/en-US/docs/Web/API/AbortController>
-    @see <https://dom.spec.whatwg.org/#interface-abortcontroller> *)
-
-open Js
-
-class type signal = object ('self)
-  method aborted : bool t readonly_prop
-
-  method reason : Unsafe.any readonly_prop
-
-  method onabort : ('self t, 'self Dom.event t) Dom.event_listener writeonly_prop
-
-  method throwIfAborted : unit meth
-end
-
-class type controller = object
-  method signal : signal t readonly_prop
-
-  method abort : unit meth
-
-  method abort_reason : Unsafe.any -> unit meth
-end
-
-val controller : controller t constr
+module Dom = Dom
+module Js = Js
+module XmlHttpRequest = XmlHttpRequest
