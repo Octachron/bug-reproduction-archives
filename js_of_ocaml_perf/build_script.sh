@@ -25,4 +25,4 @@ $CC $FLAGS -I $BUILD -open Js_of_ocaml_lwt -o $BUILD/js_of_ocaml_lwt__Lwt_xmlHtt
 
 echo "Troubles start now"
 
-time $CC $FLAGS -I $BUILD -I $SWH/lib/lwt -I $BUILD -cmi-file $BUILD/js_of_ocaml_lwt__Lwt_xmlHttpRequest.cmi -open Js_of_ocaml_lwt -o $BUILD/js_of_ocaml_lwt__Lwt_xmlHttpRequest.cmo -c -impl lwt_xmlHttpRequest.ml -i
+time $CC $FLAGS -I $BUILD -cmi-file $BUILD/js_of_ocaml_lwt__Lwt_xmlHttpRequest.cmi -open Js_of_ocaml_lwt -o $BUILD/js_of_ocaml_lwt__Lwt_xmlHttpRequest.cmo -c -impl lwt_xmlHttpRequest.ml -i
