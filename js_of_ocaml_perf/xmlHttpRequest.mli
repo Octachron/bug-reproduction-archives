@@ -22,13 +22,6 @@
 
 open Js
 
-type readyState =
-  | UNSENT
-  | OPENED
-  | HEADERS_RECEIVED
-  | LOADING
-  | DONE
-
 type _ response =
   | Default : string response
 

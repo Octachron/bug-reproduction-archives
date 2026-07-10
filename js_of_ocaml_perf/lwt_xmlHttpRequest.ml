@@ -1,5 +1,10 @@
 [@@@warning "-a"]
-open Js_of_ocaml
+open struct
+  open Js_of_ocaml__
+  module Dom = Dom
+  module Js = Js
+  module XmlHttpRequest = XmlHttpRequest
+end
 type ('a,'b) prop = (< get:'a; .. > as 'b) Js.gen_prop
 let default_response:   < responseXML : < get : (< documentElement : ('res, _) prop;
                              .. >
